@@ -10,7 +10,7 @@
 ## Domain
 
 <!-- What domain did you choose? Why is this knowledge valuable and hard to find through official channels? -->
-My unofficial guide will focus on the domain of student reviews of University of Flordia Liguistics department professors. Professor reviews are not published on official university sites and are often pass on between students through word-of-mouth or online forums. 
+My unofficial guide will focus on the domain of student reviews of University of Florida Linguistics department professors. Professor reviews are not published on official university sites and are often pass on between students through word-of-mouth or online forums. 
 
 ---
 
@@ -48,7 +48,8 @@ My unofficial guide will focus on the domain of student reviews of University of
 0
 
 **Reasoning:**
-Based on the structure of reviews on Rate my Professor, I have decided to use a document-aware chunking strategy. It will treat each review as an individual chunk. This makes sense as it isolates and contians the context behind each review. Whereas other approaches may groups reviews together if they are similar despite being different opinions (semantic approach) or lose site of document-dependent boundaries of information (fixed-size and recursive approach).
+Based on the structure of reviews on Rate my Professor, I have decided to use a document-aware chunking strategy. It will treat each review as an individual chunk. This makes sense as it isolates and contains the context behind each review. Whereas other approaches may groups reviews together if they are similar despite being different opinions (semantic approach) or lose sight of document-dependent boundaries of information (fixed-size and recursive approach).
+
 ---
 
 ## Retrieval Approach
@@ -66,7 +67,7 @@ all-MiniLM-L6-v2 via sentence-transformers
 6
 
 **Production tradeoff reflection:**
-To avoid uneccsary computation cost derieved from an overly complex model, take into consideration that my task data consits of mono-lingual English reviews, text sequence that would likly not go over 256 tokens, and limited meaning variation to require large multi-dimensional models. For that reason, I decide to use all-MiniLM-L6-v2 via sentence-transformers.
+To avoid unnecessary computation cost derived from an overly complex model, take into consideration that my task data consists of mono-lingual English reviews, text sequence that would likely not go over 256 tokens, and limited meaning variation to require large multi-dimensional models. For that reason, I decide to use all-MiniLM-L6-v2 via sentence-transformers.
 
 ---
 
@@ -123,7 +124,7 @@ To avoid uneccsary computation cost derieved from an overly complex model, take 
      with my specified chunk size and overlap" is a plan. -->
 
 **Milestone 3 — Ingestion and chunking:**
-I will be using Claude. I will provide the Chunking Strategy sections of this planning document and also provide a thourogh break down of the kind of data I am working with. Also, since I would like to take a more customized approach to ingestion and chunking, I will provide an example html file so it can provide code specific to the Rate my Professor pages' parsing needs. I am expacting the tool to produce code to one, ingest and parser the pages and two, create content-aware chunking script. I will verify this matches the spec by analyzing each step of the code and final output, ensuring the product is as anticipated and can fit well into the next step, embedding.
+I will be using Claude. I will provide the Chunking Strategy sections of this planning document and also provide a thorough break down of the kind of data I am working with. Also, since I would like to take a more customized approach to ingestion and chunking, I will provide an example html file so it can provide code specific to the Rate my Professor pages' parsing needs. I am expecting the tool to produce code to one, ingest and parse the pages and two, create content-aware chunking script. I will verify this matches the spec by analyzing each step of the code and final output, ensuring the product is as anticipated and can fit well into the next step, embedding.
 
 **Milestone 4 — Embedding and retrieval:**
 I will be using Claude. I will provide the Retrieval Approach section of this planning document, my architecture diagram which names each tool/ library I intended to use for each step of the process, and the chunks.json output from the previous milestone so the tool can see a clear visual of the data it is working with. I am expecting the tool to produce three scripts: one to embed text with all-MiniLM-L6-v2 via sentence-transformers, one to load the chunks into a persistent Chroma DB store, and one to retrieve the top-k most similar chunks for a query. I specifically will request the retrieval script to print debugging output for each query, that being the chunks it pulled and their distance scores to gage retrieval quality. I will verify this matches the spec by running the build and querying the five test questions as intended, checking that the retrieved chunks are relevant and that distance scores are valid (not reaching 0.6). 
@@ -131,8 +132,8 @@ I will be using Claude. I will provide the Retrieval Approach section of this pl
 Minor note following prompting: Chroma metadata only accepts scalar values, so the `tags` list is joined into a string and the occasionally-null `would_take_again` field is dropped during ingestion into the store.
 
 **Milestone 5 — Generation and interface:**
-I will be using Claude. I will provide my architecture diagram, which names Groq as the generation tool, along with my grounding requirements that the answer must be produced from the retrieved context only, with source attribution, emphasizing the importance of this instruction. I will also describe formatting responses as an answer plus a source list, and specify that it must reply "I don't have enough information on that." when the retrieved chunks don't cover the question. I will also point the tool at the retrieval script from the previous milestone so the generation script can reuse the retrieve() function as its input. For the interface I provided the reqiurement to use gradio and update the requirements.txt accordingly. I also outlined styling choices to fit my theme.
+I will be using Claude. I will provide my architecture diagram, which names Groq as the generation tool, along with my grounding requirements that the answer must be produced from the retrieved context only, with source attribution, emphasizing the importance of this instruction. I will also describe formatting responses as an answer plus a source list, and specify that it must reply "I don't have enough information on that." when the retrieved chunks don't cover the question. I will also point the tool at the retrieval script from the previous milestone so the generation script can reuse the retrieve() function as its input. For the interface I provided the requirement to use gradio and update the requirements.txt accordingly. I also outlined styling choices to fit my theme.
 
-I am expecting the tool to produce a generation script that calls Groq's default llama-3.3-70b-versatile, passes in the retrieved chunks, and uses a system prompt that enforces the grounding rules, citations, and stated fallback message. I also anticipate it to create a themed UI with gradio and I will prompt futher aesthetic changes as needed. I will verify this matches the spec by running the five evaluation questions and confirming each answer only uses facts present in the retrieved reviews and cites real sources, then running an off-topic question to confirm the fallback message triggers correctly. Lastly, I will run the UI and test 2 queries to ensure they display effectively.
+I am expecting the tool to produce a generation script that calls Groq's default llama-3.3-70b-versatile, passes in the retrieved chunks, and uses a system prompt that enforces the grounding rules, citations, and stated fallback message. I also anticipate it to create a themed UI with gradio and I will prompt further aesthetic changes as needed. I will verify this matches the spec by running the five evaluation questions and confirming each answer only uses facts present in the retrieved reviews and cites real sources, then running an off-topic question to confirm the fallback message triggers correctly. Lastly, I will run the UI and test 2 queries to ensure they display effectively.
 
 
