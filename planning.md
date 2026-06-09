@@ -82,8 +82,8 @@ To avoid uneccsary computation cost derieved from an overly complex model, take 
 | 1 | How do student feel about the work load in Professor Kaan's classes? | Most say it is a lot of homework and she can be a harsh grader.|
 | 2 | Any suggestions from students for taking a class with Edith Kaan? | Students suggest staying up to date with homework and readings, as well as asking for the study guide in advance. |
 | 3 | How do students feel about Jaime Garner's LIN2011 course? | Reviews for this specifc course were overall positive with students praising her lectures and minimal workload. |
-| 4 | Does Ethan Kutlu still work at UF | No, reviews suggest that while Dr. Kutlu did once work at UF, he now is in the linguistics department at Pitt. |
-| 5 | What is the overall rating of professor David Pharies | Based on 3 total reviews,  the overall rating is 2.7 out of 5 |
+| 4 | Does Ethan Kutlu still work at UF | No, reviews suggest that while Dr. Kutlu did once work at UF, but now he works at a different school. |
+| 5 | What is the overall rating of professor David Pharies | Student's reviewed Dr. Pharies as.. (list student ratings).|
 
 ---
 
@@ -131,3 +131,8 @@ I will be using Claude. I will provide the Retrieval Approach section of this pl
 Minor note following prompting: Chroma metadata only accepts scalar values, so the `tags` list is joined into a string and the occasionally-null `would_take_again` field is dropped during ingestion into the store.
 
 **Milestone 5 — Generation and interface:**
+I will be using Claude. I will provide my architecture diagram, which names Groq as the generation tool, along with my grounding requirements that the answer must be produced from the retrieved context only, with source attribution, emphasizing the importance of this instruction. I will also describe formatting responses as an answer plus a source list, and specify that it must reply "I don't have enough information on that." when the retrieved chunks don't cover the question. I will also point the tool at the retrieval script from the previous milestone so the generation script can reuse the retrieve() function as its input. For the interface I provided the reqiurement to use gradio and update the requirements.txt accordingly. I also outlined styling choices to fit my theme.
+
+I am expecting the tool to produce a generation script that calls Groq's default llama-3.3-70b-versatile, passes in the retrieved chunks, and uses a system prompt that enforces the grounding rules, citations, and stated fallback message. I also anticipate it to create a themed UI with gradio and I will prompt futher aesthetic changes as needed. I will verify this matches the spec by running the five evaluation questions and confirming each answer only uses facts present in the retrieved reviews and cites real sources, then running an off-topic question to confirm the fallback message triggers correctly. Lastly, I will run the UI and test 2 queries to ensure they display effectively.
+
+
