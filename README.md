@@ -1,4 +1,5 @@
 # The Unofficial Guide — Project 1
+In this project, I build **The Unofficial Guide**: a RAG (Retrieval-Augmented Generation) system that makes student-generated knowledge searchable and answerable. A user asks a plain-language question such as "Is the housing lottery actually random?" or "Which CS professor gives the most useful feedback?" — and gets a grounded, cited answer drawn from real documents you collected. My project will specifically focus on student opinions concerning professors, retriving information from the specific pages of the Rate my Professor site.
 
 ## Domain
 
